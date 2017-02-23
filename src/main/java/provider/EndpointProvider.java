@@ -18,4 +18,8 @@ public class EndpointProvider {
     public void findSomethind(){
 
     }
+
+    public int getNumberOfEndpoints() {
+        return  endpoints.size();
+    }
 }

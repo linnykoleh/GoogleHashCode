@@ -1,3 +1,5 @@
+package alghoritm;
+
 import structure.Graph;
 
 import java.util.*;
@@ -5,7 +7,7 @@ import java.lang.*;
 import java.io.*;
 
 // A class to represent a connected, directed and weighted graph
-class GraphTest {
+public class AlgorithmFordBellman {
     // A class to represent a weighted edge in graph
     int V, E;
     Graph.Edge edge[];
@@ -13,7 +15,7 @@ class GraphTest {
     // The main function that finds shortest distances from src
     // to all other vertices using Bellman-Ford algorithm.  The
     // function also detects negative weight cycle
-    static void BellmanFord(Graph graph, int src)
+    public static void BellmanFord(Graph graph, int src)
     {
         int V = graph.V, E = graph.E;
         int dist[] = new int[V];
