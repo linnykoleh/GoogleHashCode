@@ -15,7 +15,7 @@ public class DataCenter {
         this.videos = videos;
     }
 
-    public void findSomethind(){
-
+    public Video getVideoById(int id){
+        return videos.stream().filter(vidos -> vidos.getId() == id).findFirst().get();
     }
 }
