@@ -1,4 +1,5 @@
 import processor.MainProcessor;
+import provider.CacheProvider;
 import provider.EndpointProvider;
 import provider.RequestsProvider;
 import provider.DataCenter;
@@ -18,6 +19,7 @@ public class TeamWorkHashCode {
         final String file = defineFileName();
         List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(file).toURI()));
         MainProcessor mainProcessor = parseParams(strings);
+
 
         System.out.println("Victory");
     }
@@ -43,7 +45,9 @@ public class TeamWorkHashCode {
 
     private static MainProcessor parseParams(List<String> strings){
 
-        return new MainProcessor(parseEnterDataInfo(strings),
+        EnterDataInfo info = parseEnterDataInfo(strings);
+        CacheProvider cacheProvider = new CacheProvider(info.getCaches(), info.getCaches());
+        return new MainProcessor(info,
                 new DataCenter(parseVideos(strings)),
                 new EndpointProvider(parseEndPoints(strings)),
                 new RequestsProvider(parseRequests(strings)));
@@ -85,17 +89,17 @@ public class TeamWorkHashCode {
 
             if (cachesCount > 0) {
 
-                List<Cache> latencies = new ArrayList<>(cachesCount);
+                List<Cache> caches = new ArrayList<>(cachesCount);
 
                 for(int j = 0; j < cachesCount; j++) {
                     String[] latencyParams = strings.get(i + 1 + j).split(" ");
-                    latencies.add(new Cache(Integer.parseInt(latencyParams[0]),
+                    caches.add(new Cache(Integer.parseInt(latencyParams[0]),
                             Integer.parseInt(latencyParams[1]), enterDataInfo.getSizeEachCache()));
                 }
 
                 i = i + 1 + cachesCount;
 
-                endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, latencies));
+                endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, caches));
 
             } else {
                 endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, null));
