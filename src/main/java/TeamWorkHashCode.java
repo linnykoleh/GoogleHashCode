@@ -1,7 +1,9 @@
 import structure.EnterDataInfo;
+import structure.Video;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,10 +11,14 @@ public class TeamWorkHashCode {
 
     private static EnterDataInfo enterDataInfo;
 
+    private static List<Video> videos;
+
     public static void main(String[] args) throws Exception {
         final String file = defineFileName();
         List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(file).toURI()));
         parseParams(strings);
+
+        System.out.println("sdafhdsfjkh");
     }
 
     private static String defineFileName() {
@@ -36,6 +42,7 @@ public class TeamWorkHashCode {
 
     private static void parseParams(List<String> strings){
         String entryPoint = strings.get(0);
+
         String[] entryParams = entryPoint.split(" ");
         enterDataInfo = new EnterDataInfo(
                 Integer.parseInt(entryParams[0]),
@@ -43,5 +50,13 @@ public class TeamWorkHashCode {
                 Integer.parseInt(entryParams[2]),
                 Integer.parseInt(entryParams[3]),
                 Integer.parseInt(entryParams[4]));
+
+        String[] videosStrings = strings.get(1).split(" ");
+        videos = new ArrayList<>(enterDataInfo.getVideos());
+
+        for(int i = 0; i < videosStrings.length; i++ ) {
+            videos.add(new Video(i, Integer.parseInt(videosStrings[i])));
+        }
+
     }
 }
