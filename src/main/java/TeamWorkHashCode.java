@@ -1,3 +1,7 @@
+import processor.MainProcessor;
+import provider.EndpointProvider;
+import provider.RequestsProvider;
+import provider.DataCenter;
 import structure.*;
 
 import java.nio.file.Files;
@@ -10,14 +14,10 @@ public class TeamWorkHashCode {
 
     private static EnterDataInfo enterDataInfo;
 
-    private static List<Video> videos;
-    private static List<Endpoint> endpoints;
-    private static List<Request> requests;
-
     public static void main(String[] args) throws Exception {
         final String file = defineFileName();
         List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(file).toURI()));
-        parseParams(strings);
+        MainProcessor mainProcessor = parseParams(strings);
 
         System.out.println("Victory");
     }
@@ -41,31 +41,41 @@ public class TeamWorkHashCode {
         }
     }
 
-    private static void parseParams(List<String> strings){
-        String entryPoint = strings.get(0);
+    private static MainProcessor parseParams(List<String> strings){
 
-        String[] entryParams = entryPoint.split(" ");
-        enterDataInfo = new EnterDataInfo(
-                Integer.parseInt(entryParams[0]),
-                Integer.parseInt(entryParams[1]),
-                Integer.parseInt(entryParams[2]),
-                Integer.parseInt(entryParams[3]),
-                Integer.parseInt(entryParams[4]));
+        return new MainProcessor(parseEnterDataInfo(strings),
+                new DataCenter(parseVideos(strings)),
+                new EndpointProvider(parseEndPoints(strings)),
+                new RequestsProvider(parseRequests(strings)));
 
+    }
+
+    private static List<Video> parseVideos(List<String> strings) {
         String[] videosStrings = strings.get(1).split(" ");
-        videos = new ArrayList<>(enterDataInfo.getVideos());
+        List<Video> videos = new ArrayList<>(enterDataInfo.getVideos());
 
         for(int i = 0; i < videosStrings.length; i++ ) {
             videos.add(new Video(i, Integer.parseInt(videosStrings[i])));
         }
 
-        requests = parseRequests(strings);
-        endpoints = parseEndPoints(strings.subList(2,strings.size() - enterDataInfo.getRequestDescriptions()));
+        return videos;
+    }
 
+
+    private static EnterDataInfo parseEnterDataInfo(List<String> strings) {
+        String entryPoint = strings.get(0);
+
+        String[] entryParams = entryPoint.split(" ");
+        return enterDataInfo = new EnterDataInfo(
+                Integer.parseInt(entryParams[0]),
+                Integer.parseInt(entryParams[1]),
+                Integer.parseInt(entryParams[2]),
+                Integer.parseInt(entryParams[3]),
+                Integer.parseInt(entryParams[4]));
     }
 
     private static List<Endpoint> parseEndPoints(List<String> strings) {
-
+        strings = strings.subList(2,strings.size() - enterDataInfo.getRequestDescriptions());
         ArrayList<Endpoint> endpoints = new ArrayList<>(enterDataInfo.getEndpoints());
         for(int i = 0; i < strings.size(); ) {
             String[] endpointParams = strings.get(i).split(" ");

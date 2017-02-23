@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Class for working with video
  */
-public class VideoProvider {
+public class DataCenter {
 
     private List<Video> videos;
 
-    public VideoProvider(List<Video> videos) {
+    public DataCenter(List<Video> videos) {
         this.videos = videos;
     }
 
