@@ -19,5 +19,9 @@ public class MainProcessor {
         this.requestsProvider = requestsProvider;
     }
 
+    public void findBestCacheServerForVideos(){
+
+    }
+
 
 }
