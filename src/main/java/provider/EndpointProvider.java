@@ -1,7 +1,9 @@
 package provider;
 
 import structure.Endpoint;
+import structure.Request;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -15,9 +17,11 @@ public class EndpointProvider {
         this.endpoints = endpoints;
     }
 
-    public void findBestChache(){
+    public Endpoint getEndpointById(int endpointId){
+        for(Endpoint endpoint : endpoints){
+            if(endpoint.)
 
-
+        }
     }
 
     public int getNumberOfEndpoints() {

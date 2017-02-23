@@ -2,8 +2,12 @@ package processor;
 
 import provider.EndpointProvider;
 import provider.RequestsProvider;
+import structure.Endpoint;
 import structure.EnterDataInfo;
 import provider.DataCenter;
+import structure.Request;
+
+import java.util.List;
 
 public class MainProcessor {
 
@@ -17,6 +21,15 @@ public class MainProcessor {
         this.dataCenter = dataCenter;
         this.endpointProvider = endpointProvider;
         this.requestsProvider = requestsProvider;
+    }
+
+    public void doIt(){
+        final List<Request> allRequestsSortedByNumber = requestsProvider.getAllRequests();
+        final List<Endpoint> bestEndpoint = endpointProvider.getBestEndpoint();
+
+        for(Request request : allRequestsSortedByNumber){
+            for()
+        }
     }
 
 
