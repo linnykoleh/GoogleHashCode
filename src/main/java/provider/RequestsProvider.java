@@ -2,6 +2,8 @@ package provider;
 
 import structure.Request;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -13,9 +15,11 @@ public class RequestsProvider {
 
     public RequestsProvider(List<Request> requests) {
         this.requests = requests;
+        requests.sort(Comparator.comparingInt(Request::getRequestsNumber));
     }
 
-    public void findSomethind(){
-
+    public List<Request> getAllRequests(){
+        return requests;
     }
+
 }
