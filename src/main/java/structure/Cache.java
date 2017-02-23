@@ -24,6 +24,11 @@ public class Cache {
         return latencyTime;
     }
 
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
     public int getAvelibleSize() {
         return size;
     }

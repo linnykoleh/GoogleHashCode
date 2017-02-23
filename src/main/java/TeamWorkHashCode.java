@@ -5,6 +5,8 @@ import provider.RequestsProvider;
 import provider.DataCenter;
 import structure.*;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -122,5 +124,17 @@ public class TeamWorkHashCode {
         });
 
         return requests;
+    }
+
+    private static void printCacheInfoInFile(List<Cache> caches, String fileName) throws IOException {
+        System.out.println("Writing to file: " + fileName);
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("result/" + fileName))) {
+            writer.newLine();
+            writer.write("" + caches.size());
+            for (Cache cache: caches){
+                writer.newLine();
+                writer.write(cache.getCacheId() + " " + cache.getVideos());
+            }
+        }
     }
 }

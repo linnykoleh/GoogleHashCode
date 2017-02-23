@@ -17,13 +17,7 @@ public class EndpointProvider {
         this.endpoints = endpoints;
     }
 
-    public Endpoint getEndpointById(int endpointId){
-        for(Endpoint endpoint : endpoints){
-            if(endpoint.)
-
-        }
-    }
-
+    
     public int getNumberOfEndpoints() {
         return  endpoints.size();
     }
