@@ -41,8 +41,9 @@ public class CombinationAlgorithm {
     public static void main(String[] args) {
         List<int[]> list = Arrays.asList(
                 new int[][]{
-                        {1,2},
-                        {2,4}});
+                        {2, 1},
+                        {4, 3},
+                        {1}});
         printCombinationsOfPossibleDataAtCache("combination ->", list);
     }
 }

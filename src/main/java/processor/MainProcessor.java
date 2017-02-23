@@ -19,7 +19,7 @@ public class MainProcessor {
     public MainProcessor(EnterDataInfo info, VideoProvider videoProvider, EndpointProvider endpointProvider, RequestsProvider requestsProvider) {
         this.info = info;
         this.videoProvider = videoProvider;
-        this.endpointProvider = endpointProvider;
+        MainProcessor.endpointProvider = endpointProvider;
         this.requestsProvider = requestsProvider;
     }
 
