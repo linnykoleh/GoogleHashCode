@@ -18,8 +18,8 @@ public class RequestsProvider {
         requests.sort(Comparator.comparingInt(Request::getRequestsNumber));
     }
 
-    public void findSomethind(){
-
+    public List<Request> getAllRequests(){
+        return requests;
     }
 
 }
