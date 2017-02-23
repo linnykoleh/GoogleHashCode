@@ -75,11 +75,11 @@ public class TeamWorkHashCode {
 
             if (cachesCount > 0) {
 
-                List<LatencyOfEndpoint> latencies = new ArrayList<>(cachesCount);
+                List<Cache> latencies = new ArrayList<>(cachesCount);
 
                 for(int j = 0; j < cachesCount; j++) {
                     String[] latencyParams = strings.get(i + 1 + j).split(" ");
-                    latencies.add(new LatencyOfEndpoint(Integer.parseInt(latencyParams[0]),
+                    latencies.add(new Cache(Integer.parseInt(latencyParams[0]),
                             Integer.parseInt(latencyParams[1])));
                 }
 

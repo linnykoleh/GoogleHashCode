@@ -6,12 +6,12 @@ public class Endpoint {
 
     private int dataCenterLatency;
     private int connectedCache;
-    private List<LatencyOfEndpoint> latencyOfEndpointList;
+    private List<Cache> cacheList;
 
-    public Endpoint(int dataCenterLatency, int connectedCache, List<LatencyOfEndpoint> latencyOfEndpointList) {
+    public Endpoint(int dataCenterLatency, int connectedCache, List<Cache> cacheList) {
         this.dataCenterLatency = dataCenterLatency;
         this.connectedCache = connectedCache;
-        this.latencyOfEndpointList = latencyOfEndpointList;
+        this.cacheList = cacheList;
     }
 
     public int getDataCenterLatency() {
@@ -22,7 +22,7 @@ public class Endpoint {
         return connectedCache;
     }
 
-    public List<LatencyOfEndpoint> getLatencyOfEndpointList() {
-        return latencyOfEndpointList;
+    public List<Cache> getCacheList() {
+        return cacheList;
     }
 }

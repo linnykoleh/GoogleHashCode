@@ -1,11 +1,11 @@
 package structure;
 
-public class LatencyOfEndpoint {
+public class Cache {
 
     private int cacheId;
     private int latencyTime;
 
-    public LatencyOfEndpoint(int cacheId, int latencyTime) {
+    public Cache(int cacheId, int latencyTime) {
         this.cacheId = cacheId;
         this.latencyTime = latencyTime;
     }
