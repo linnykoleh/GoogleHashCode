@@ -90,15 +90,15 @@ public class TeamWorkHashCode {
                 for(int j = 0; j < cachesCount; j++) {
                     String[] latencyParams = strings.get(i + 1 + j).split(" ");
                     latencies.add(new Cache(Integer.parseInt(latencyParams[0]),
-                            Integer.parseInt(latencyParams[1])));
+                            Integer.parseInt(latencyParams[1]), enterDataInfo.getSizeEachCache()));
                 }
 
                 i = i + 1 + cachesCount;
 
-                endpoints.add(new Endpoint(dataCenterLatency, cachesCount, latencies));
+                endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, latencies));
 
             } else {
-                endpoints.add(new Endpoint(dataCenterLatency, cachesCount, null));
+                endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, null));
             }
         }
         return endpoints;
