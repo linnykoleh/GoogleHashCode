@@ -13,11 +13,7 @@ public class CacheProvider {
     List<Cache> caches;
 
     public CacheProvider(int numberOfCaches, int cacheSize) {
-        this.caches = new ArrayList<>(numberOfCaches);
-
-        for(int i=0; i < numberOfCaches; i++) {
-            caches.add(new Cache(i, 0, cacheSize));
-        }
+        this.caches = new ArrayList<>();
     }
 
     private boolean canBeAddedToCache(int videoSize, int cacheId) {
@@ -32,5 +28,25 @@ public class CacheProvider {
                     .filter(cache -> cache.getCacheId() == cacheId)
                     .forEach(cache -> cache.addVideo(video));
         }
+    }
+
+    public void findVideoToBestCache(List<Cache> caches, Video video) {
+
+        int bestCacheIndex = 0;
+        int latencyTime = caches.get(0).getLatencyTime();
+
+        for(int i = 0; i < caches.size(); i++) {
+            if (caches.get(i).getLatencyTime() < latencyTime){
+                latencyTime = caches.get(i).getLatencyTime();
+            }
+        }
+
+        for(int i = 0; i < caches.size(); i++) {
+            if (caches.get(i).getLatencyTime() == latencyTime){
+                bestCacheIndex = i;
+            }
+        }
+
+        this.caches.add(caches.get(bestCacheIndex));
     }
 }
