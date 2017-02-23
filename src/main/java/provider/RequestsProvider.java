@@ -15,7 +15,7 @@ public class RequestsProvider {
 
     public RequestsProvider(List<Request> requests) {
         this.requests = requests;
-        Collections.sort(requests, Comparator.comparingInt(Request::getRequestsNumber));
+        requests.sort(Comparator.comparingInt(Request::getRequestsNumber));
     }
 
     public void findSomethind(){
