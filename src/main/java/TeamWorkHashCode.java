@@ -1,7 +1,4 @@
-import structure.Endpoint;
-import structure.EnterDataInfo;
-import structure.Request;
-import structure.Video;
+import structure.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,7 +19,7 @@ public class TeamWorkHashCode {
         List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(file).toURI()));
         parseParams(strings);
 
-        System.out.println("sdafhdsfjkh");
+        System.out.println("Victory");
     }
 
     private static String defineFileName() {
@@ -63,14 +60,38 @@ public class TeamWorkHashCode {
         }
 
         requests = parseRequests(strings);
-
-
-//        endpoints = parseEndPoints(strings);
+        endpoints = parseEndPoints(strings.subList(2,strings.size() - enterDataInfo.getRequestDescriptions()));
 
     }
 
     private static List<Endpoint> parseEndPoints(List<String> strings) {
-        return null;
+
+        ArrayList<Endpoint> endpoints = new ArrayList<>(enterDataInfo.getEndpoints());
+        for(int i = 0; i < strings.size(); ) {
+            String[] endpointParams = strings.get(i).split(" ");
+
+            int dataCenterLatency = Integer.parseInt(endpointParams[0]);
+            int cachesCount = Integer.parseInt(endpointParams[1]);
+
+            if (cachesCount > 0) {
+
+                List<LatencyOfEndpoint> latencies = new ArrayList<>(cachesCount);
+
+                for(int j = 0; j < cachesCount; j++) {
+                    String[] latencyParams = strings.get(i + 1 + j).split(" ");
+                    latencies.add(new LatencyOfEndpoint(Integer.parseInt(latencyParams[0]),
+                            Integer.parseInt(latencyParams[1])));
+                }
+
+                i = i + 1 + cachesCount;
+
+                endpoints.add(new Endpoint(dataCenterLatency, cachesCount, latencies));
+
+            } else {
+                endpoints.add(new Endpoint(dataCenterLatency, cachesCount, null));
+            }
+        }
+        return endpoints;
     }
 
     private static List<Request> parseRequests(List<String> strings) {
