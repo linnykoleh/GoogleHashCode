@@ -25,14 +25,13 @@ public class CacheProvider {
 
        int videoSize = video.getSize();
 
-		/*boolean isAlreadyCached = caches.stream()
+		boolean isAlreadyCached = caches.stream()
 				.filter(cache -> cachesInfo.stream().anyMatch(cacheInfo -> cache.getCacheId() == cacheInfo.getCacheId()))
 				.anyMatch(cache -> cache.getVideos().stream().anyMatch(videoFromCache -> videoFromCache.getId() == video.getId()));
 
 		if (isAlreadyCached) {
 			return false;
-		}*/
-
+		}
 
         final List<CacheState> cacheStatesBeforeLatencyCheck = caches.stream()
                 .filter(cache -> cachesInfo.stream().anyMatch(cacheInfo -> cache.getCacheId() == cacheInfo.getCacheId()))
