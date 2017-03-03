@@ -64,6 +64,7 @@ public class CacheProvider {
         int videoSize = video.getSize();
 
         final Optional<CacheState> cacheState = caches.stream()
+                .filter(cache -> cache.getVideos().stream().noneMatch(videoFromCache -> videoFromCache.getId() == video.getId()))
                 .filter(cache -> cache.getAvailableSize() >= videoSize).findFirst();
 
         if(cacheState.isPresent()){
