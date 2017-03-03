@@ -16,9 +16,10 @@ public class RequestsProvider {
     public RequestsProvider(List<Request> requests) {
         this.requests = requests;
         requests.sort(Comparator.comparingInt(Request::getRequestsNumber));
+        Collections.reverse(requests);
     }
 
-    public List<Request> getAllRequests(){
+    public List<Request> getBestRequests(){
         return requests;
     }
 

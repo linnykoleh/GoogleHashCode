@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class TeamWorkHashCode {
 
@@ -21,7 +23,8 @@ public class TeamWorkHashCode {
         final String file = defineFileName();
         List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(file).toURI()));
         MainProcessor mainProcessor = parseParams(strings);
-
+        final Set<CacheState> cacheStates = mainProcessor.doIt();
+        printCacheInfoInFile(cacheStates, file);
 
         System.out.println("Victory");
     }
@@ -47,12 +50,21 @@ public class TeamWorkHashCode {
 
     private static MainProcessor parseParams(List<String> strings){
 
-        EnterDataInfo info = parseEnterDataInfo(strings);
-        CacheProvider cacheProvider = new CacheProvider(info.getCaches(), info.getCaches());
+        final EnterDataInfo info = parseEnterDataInfo(strings);
+        final List<Endpoint> endpoints = parseEndPoints(strings);
+        final Set<CacheState> cacheStates = new HashSet<>();
+        for(Endpoint endpoint : endpoints){
+            List<CacheInfo> cacheInfoList = endpoint.getCacheInfoList();
+            for(CacheInfo cacheInfo: cacheInfoList){
+                cacheStates.add(new CacheState(cacheInfo.getCacheId(), cacheInfo.getSize()));
+            }
+        }
+        final CacheProvider cacheProvider = new CacheProvider(cacheStates);
         return new MainProcessor(info,
                 new DataCenter(parseVideos(strings)),
-                new EndpointProvider(parseEndPoints(strings)),
-                new RequestsProvider(parseRequests(strings)));
+                new EndpointProvider(endpoints),
+                new RequestsProvider(parseRequests(strings)),
+                cacheProvider);
 
     }
 
@@ -83,7 +95,7 @@ public class TeamWorkHashCode {
     private static List<Endpoint> parseEndPoints(List<String> strings) {
         strings = strings.subList(2,strings.size() - enterDataInfo.getRequestDescriptions());
         ArrayList<Endpoint> endpoints = new ArrayList<>(enterDataInfo.getEndpoints());
-        for(int i = 0; i < strings.size(); ) {
+        for(int i = 0, k = 0; i < strings.size(); k++) {
             String[] endpointParams = strings.get(i).split(" ");
 
             int dataCenterLatency = Integer.parseInt(endpointParams[0]);
@@ -91,20 +103,20 @@ public class TeamWorkHashCode {
 
             if (cachesCount > 0) {
 
-                List<Cache> caches = new ArrayList<>(cachesCount);
+                List<CacheInfo> caches = new ArrayList<>(cachesCount);
 
                 for(int j = 0; j < cachesCount; j++) {
                     String[] latencyParams = strings.get(i + 1 + j).split(" ");
-                    caches.add(new Cache(Integer.parseInt(latencyParams[0]),
+                    caches.add(new CacheInfo(Integer.parseInt(latencyParams[0]),
                             Integer.parseInt(latencyParams[1]), enterDataInfo.getSizeEachCache()));
                 }
 
                 i = i + 1 + cachesCount;
 
-                endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, caches));
+                endpoints.add(new Endpoint(k, dataCenterLatency, cachesCount, caches));
 
             } else {
-                endpoints.add(new Endpoint(i, dataCenterLatency, cachesCount, null));
+                endpoints.add(new Endpoint(k, dataCenterLatency, cachesCount, null));
             }
         }
         return endpoints;
@@ -126,14 +138,17 @@ public class TeamWorkHashCode {
         return requests;
     }
 
-    private static void printCacheInfoInFile(List<Cache> caches, String fileName) throws IOException {
+    private static void printCacheInfoInFile(Set<CacheState> caches, String fileName) throws IOException {
         System.out.println("Writing to file: " + fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("result/" + fileName))) {
-            writer.newLine();
-            writer.write("" + caches.size());
-            for (Cache cache: caches){
-                writer.newLine();
-                writer.write(cache.getCacheId() + " " + cache.getVideos());
+            writer.write(caches.size() + "\n");
+            for (CacheState cache : caches){
+                String result = "" + cache.getCacheId();
+                for(Video video : cache.getVideos()){
+                    result+= " " + video.getId();
+                }
+                writer.write(result + "\n");
+
             }
         }
     }

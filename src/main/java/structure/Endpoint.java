@@ -7,13 +7,13 @@ public class Endpoint {
     private int endpointId;
     private int dataCenterLatency;
     private int connectedCache;
-    private List<Cache> cacheList;
+    private List<CacheInfo> cacheInfoList;
 
-    public Endpoint(int endpointId, int dataCenterLatency, int connectedCache, List<Cache> cacheList) {
+    public Endpoint(int endpointId, int dataCenterLatency, int connectedCache, List<CacheInfo> cacheInfoList) {
         this.endpointId = endpointId;
         this.dataCenterLatency = dataCenterLatency;
         this.connectedCache = connectedCache;
-        this.cacheList = cacheList;
+        this.cacheInfoList = cacheInfoList;
     }
 
     public int getEndpointId() {
@@ -28,7 +28,7 @@ public class Endpoint {
         return connectedCache;
     }
 
-    public List<Cache> getCacheList() {
-        return cacheList;
+    public List<CacheInfo> getCacheInfoList() {
+        return cacheInfoList;
     }
 }

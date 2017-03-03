@@ -1,9 +1,6 @@
 package provider;
 
 import structure.Endpoint;
-import structure.Request;
-
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -17,8 +14,8 @@ public class EndpointProvider {
         this.endpoints = endpoints;
     }
 
-    
-    public int getNumberOfEndpoints() {
-        return  endpoints.size();
+    public Endpoint getEndpointById(int endpointId){
+        return endpoints.stream().filter(endpoint -> endpoint.getEndpointId() == endpointId).findFirst().get();
     }
+
 }

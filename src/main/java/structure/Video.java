@@ -17,4 +17,12 @@ public class Video {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "id=" + id +
+                ", size=" + size +
+                '}';
+    }
 }
