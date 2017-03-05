@@ -24,6 +24,18 @@ The picture below represents the video serving network.
 
 ![alt text](src/main/resources/images/Screenshot2.png)
 
+**Visualization result of our submission**
+
+_Kittens_
+![alt text](src/main/resources/images/visualization/hashcode.png)
+
+_Trending today_
+![alt text](src/main/resources/images/visualization/hashcode1.png)
+
+_Me at the zoo_
+![alt text](src/main/resources/images/visualization/hashcode.png)
+
+
 **Videos**
 
 Each video has a size given in megabytes (MB). The data center stores all videos​. Additionally, each video
