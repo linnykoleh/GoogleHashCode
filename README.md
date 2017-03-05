@@ -1,5 +1,17 @@
 ![alt text](src/main/resources/images/Screenshot1.png)
 
+**Visualization result of our submission**
+
+_Kittens_
+![alt text](src/main/resources/images/visualization/hashcode.png)
+
+_Trending today_
+![alt text](src/main/resources/images/visualization/hashcode1.png)
+
+_Me at the zoo_
+![alt text](src/main/resources/images/visualization/hashcode.png)
+
+
 **Introduction**
 
 Have you ever wondered what happens behind the scenes when you watch a YouTube video? As more
@@ -23,18 +35,6 @@ waiting time for all requests.
 The picture below represents the video serving network.
 
 ![alt text](src/main/resources/images/Screenshot2.png)
-
-**Visualization result of our submission**
-
-_Kittens_
-![alt text](src/main/resources/images/visualization/hashcode.png)
-
-_Trending today_
-![alt text](src/main/resources/images/visualization/hashcode1.png)
-
-_Me at the zoo_
-![alt text](src/main/resources/images/visualization/hashcode.png)
-
 
 **Videos**
 
@@ -149,6 +149,5 @@ rounding down.
 ![alt text](src/main/resources/images/Screenshot5.png)
 
 ![alt text](src/main/resources/images/Screenshot6.png)
-
 
 _© Google 2017, All rights reserved._
